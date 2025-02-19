@@ -2,7 +2,7 @@
 
 This README provides information about the Linux user-space driver for the graphics tablet sold in Brazil as the Multilaser MX002. The driver supports various rebranded versions of the same device.
 
-#Changes made:
+# Changes made:
 Added a small snippet to regulate the touch and pen proximity sensitivity.Other things like strength of the line are also taken on consideration,even though not tested.The changes can be made in this snippet:
 
     fn normalize_pressure(raw_pressure: i32) -> i32 {
