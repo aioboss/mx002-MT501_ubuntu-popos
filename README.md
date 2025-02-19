@@ -15,7 +15,7 @@ Added a small snippet to regulate the touch and pen proximity sensitivity.Other 
         }
     }
 
-
+Be wary that the lower the threshold goes,the more probable it is for the pen to be detected wrongly.Make it a very big number,and the touch will stop working(But the rover will still woker.
 ## Supported Devices
 
 This driver is intended for use with the following devices:
