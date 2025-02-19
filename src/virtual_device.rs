@@ -213,7 +213,7 @@ impl DeviceDispatcher {
             UinputAbsSetup::new(AbsoluteAxisType::ABS_Y, AbsInfo::new(0, 0, 4096, 0, 0, 1));
         let abs_pressure_setup = UinputAbsSetup::new(
             AbsoluteAxisType::ABS_PRESSURE,
-            AbsInfo::new(0, 0, 600, 0, 0, 1),
+            AbsInfo::new(0, 0, 5000, 0, 0, 1),
         );
 
         let mut key_set = AttributeSet::<Key>::new();
@@ -247,11 +247,13 @@ impl DeviceDispatcher {
 
         self.pen_emit_touch(raw_data);
     }
-
     fn normalize_pressure(raw_pressure: i32) -> i32 {
+        let proximity_threshold = 600; // Adjust for proximity sensitivity
+        let strength_scaling = 2; // Adjust for strength of the press
+    
         match 1740 - raw_pressure {
-            x if x <= 0 => 0,
-            x => x,
+            x if x <= proximity_threshold => 0,
+            x => x * strength_scaling, // Scale the pressure for stronger presses
         }
     }
 
