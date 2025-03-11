@@ -2,6 +2,20 @@
 
 This README provides information about the Linux user-space driver for the graphics tablet sold in Brazil as the Multilaser MX002. The driver supports various rebranded versions of the same device.
 
+# Changes made:
+Added a small snippet to regulate the touch and pen proximity sensitivity.Other things like strength of the line are also taken on consideration,even though not tested.The changes can be made in this snippet:
+
+    fn normalize_pressure(raw_pressure: i32) -> i32 {
+        let proximity_threshold = 600; // Adjust for proximity sensitivity
+        let strength_scaling = 2; // Adjust for strength of the press
+    
+        match 1740 - raw_pressure {
+            x if x <= proximity_threshold => 0,
+            x => x * strength_scaling, // Scale the pressure for stronger presses
+        }
+    }
+
+Be wary that the lower the threshold goes,the more probable it is for the pen to be detected wrongly.Make it a very big number,and the touch will stop working(But the rover will still woker.
 ## Supported Devices
 
 This driver is intended for use with the following devices:
